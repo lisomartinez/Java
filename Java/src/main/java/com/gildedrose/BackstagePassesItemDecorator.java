@@ -1,24 +1,40 @@
 package com.gildedrose;
 
 public class BackstagePassesItemDecorator extends ItemDecorator {
+
+    public static final int ELEVEN_DAYS = 11;
+    public static final int SIX_DAYS = 6;
+
     protected BackstagePassesItemDecorator(Item item) {
         super(item);
     }
 
     @Override
     void update() {
-        if (canIncreaseQuality(item)) {
-            increaseQuality(item);
-            if (item.sellIn < 11 && canIncreaseQuality(item)) {
-                increaseQuality(item);
-            }
-            if (item.sellIn < 6 && canIncreaseQuality(item)) {
-                increaseQuality(item);
-            }
-        }
+        increaseQuality(item);
+        increaseQualityBasedOnDaysBeforeExpiration(item);
         decreaseSellIn(item);
-        if (item.sellIn < 0) {
-            decreaseItemQualityBy(item, item.quality);
+        onCannotBeSoldDo(item, this::decreaseItemQualityToZero);
+    }
+
+    private void decreaseItemQualityToZero(Item item) {
+        item.quality = 0;
+    }
+
+    private void increaseQualityBasedOnDaysBeforeExpiration(Item item) {
+        if (isTenOrLessDaysToExpiration(item)) {
+            increaseQuality(item);
         }
+        if (isFiveOrLessDaysToExpiration(item)) {
+            increaseQuality(item);
+        }
+    }
+
+    private boolean isTenOrLessDaysToExpiration(Item item) {
+        return item.sellIn < ELEVEN_DAYS;
+    }
+
+    private boolean isFiveOrLessDaysToExpiration(Item item) {
+        return item.sellIn < SIX_DAYS;
     }
 }

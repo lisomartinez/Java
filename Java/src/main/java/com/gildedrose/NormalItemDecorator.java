@@ -8,14 +8,8 @@ public class NormalItemDecorator extends ItemDecorator {
 
     @Override
     void update() {
-        if (item.quality > 0) {
-            decreaseItemQualityBy(item, 1);
-        }
+        decreaseQualityByOne(item);
         decreaseSellIn(item);
-        if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                decreaseItemQualityBy(item, 1);
-            }
-        }
+        onCannotBeSoldDo(item, super::decreaseQualityByOne);
     }
 }

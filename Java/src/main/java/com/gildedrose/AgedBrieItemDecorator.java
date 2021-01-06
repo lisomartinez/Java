@@ -9,14 +9,9 @@ public class AgedBrieItemDecorator extends ItemDecorator {
 
     @Override
     public void update() {
-        if (canIncreaseQuality(item)) {
-            increaseQuality(item);
-        }
+        increaseQuality(item);
         decreaseSellIn(item);
-        if (item.sellIn < 0 && canIncreaseQuality(item)) {
-            increaseQuality(item);
-
-        }
+        onCannotBeSoldDo(item, super::increaseQuality);
     }
 
 }
