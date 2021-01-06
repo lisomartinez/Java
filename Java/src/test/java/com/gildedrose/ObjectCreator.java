@@ -17,6 +17,6 @@ public class ObjectCreator {
     public static final int SELL_IN_FIVE = 5;
 
     GildedRose createGildedRose(Item... items) {
-        return new GildedRose(items);
+        return new GildedRose(items, new DecoratorFactory());
     }
 }

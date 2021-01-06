@@ -11,7 +11,7 @@ class NormalItemGildedRoseTest {
     @Test
     void afterUpdateNormalItemsDecreaseItsSellInByOne() {
         Item normalItem = new Item(ObjectCreator.NORMAL_ITEM_NAME, 1, 1);
-        GildedRose app = new GildedRose(new Item[]{normalItem});
+        GildedRose app = objectCreator.createGildedRose(normalItem);
         app.updateQuality();
         assertThat(app.items[0].sellIn).isZero();
     }
