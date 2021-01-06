@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import java.util.Arrays;
+
 class GildedRose {
     public static final String AGED_BRIE = "Aged Brie";
     public static final String BACKSTAGE_PASSES =
@@ -10,17 +12,14 @@ class GildedRose {
     Item[] items;
     private final DecoratorFactory decoratorFactory;
 
-
     public GildedRose(Item[] items, DecoratorFactory decoratorFactory) {
         this.items = items;
         this.decoratorFactory = decoratorFactory;
     }
 
-
     public void updateQuality() {
-        for (Item item : items) {
-            ItemDecorator decoratedItem = decoratorFactory.create(item);
-            decoratedItem.update();
-        }
+        Arrays.stream(items)
+              .map(decoratorFactory::create)
+              .forEach(ItemDecorator::update);
     }
 }
