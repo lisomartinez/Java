@@ -26,37 +26,4 @@ class GildedRoseTest {
         assertThat(app.items[0].sellIn).isEqualTo(1);
     }
 
-    @Test
-    void AfterUpdateNormalItemsDecreaseItsSellInByOne() {
-        Item[] items = new Item[]{new Item("foo", 1, 1)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertThat(app.items[0].sellIn).isZero();
-    }
-
-    @Test
-    void AfterUpdateNormalItemsDecreaseItsQualityByOne() {
-        Item[] items = new Item[]{new Item("foo", 1, 1)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertThat(app.items[0].quality).isZero();
-    }
-
-    @Test
-    void OnceTheSellByDateHasPassedQualityOfNormalItemsDegradesTwiceAsFast() {
-        Item[] items = new Item[]{new Item("foo", 0, 2)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertThat(app.items[0].quality).isZero();
-    }
-
-    @Test
-    void QualityOfNormalItemsIsNeverNegativeWhenUpdates() {
-        Item[] items = new Item[]{new Item("foo", 0, 0)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertThat(app.items[0].quality).isZero();
-    }
-
-
 }
